@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cy-note" />
+        <module name="cy-practice-util" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cy-note" target="1.8" />
       <module name="cy-parent" target="1.8" />
+      <module name="cy-practice-util" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
