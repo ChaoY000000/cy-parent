@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/cy-note/cy-note.iml" filepath="$PROJECT_DIR$/cy-note/cy-note.iml" />
       <module fileurl="file://$PROJECT_DIR$/cy-parent.iml" filepath="$PROJECT_DIR$/cy-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/cy-practice-util/cy-practice-util.iml" filepath="$PROJECT_DIR$/cy-practice-util/cy-practice-util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cy-practice-web/cy-practice-web.iml" filepath="$PROJECT_DIR$/cy-practice-web/cy-practice-web.iml" />
     </modules>
   </component>
 </project>

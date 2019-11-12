@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="cy-note" />
         <module name="cy-practice-util" />
-        <module name="cy-practice-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
