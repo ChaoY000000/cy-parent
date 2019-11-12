@@ -6,6 +6,7 @@
 	<modules>
 		<module>cy-note</module>
 		<module>cy-practice-web</module>
+		<module>cy-practice-util</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
