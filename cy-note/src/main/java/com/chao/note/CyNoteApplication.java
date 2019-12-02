@@ -34,4 +34,26 @@ public class CyNoteApplication {
     }
 
 
+    @RequestMapping("/helloERROR")
+    public String helloERROR(int i,String hello) {
+
+        logger.info("helloERROR     info日志记录测试--------------------------");
+        logger.debug("helloERROR    debug日志记录测试--------------------------");
+        try {
+            i = 100 / i;
+            hello = hello.toString();
+        } catch (ArithmeticException e){
+            logger.error("helloERROR    0 不能当分母--------------------------");
+            e.printStackTrace();
+        }catch (NullPointerException e) {
+            logger.error("helloERROR    空指针异常--------------------------");
+        }catch (Exception e){
+            logger.error("helloERROR    异常--------------------------");
+        }
+        String value = Utils.getValue(i + "  " + hello);
+        System.out.println("helloERROR : " + value);
+        logger.info("helloERROR value : " + value);
+        return value;
+    }
+
 }
