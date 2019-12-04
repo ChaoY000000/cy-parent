@@ -7,7 +7,8 @@
 		<module>cy-note</module>
 		<module>cy-practice-web</module>
 		<module>cy-practice-util</module>
-	</modules>
+        <module>cy-practice-biz</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
