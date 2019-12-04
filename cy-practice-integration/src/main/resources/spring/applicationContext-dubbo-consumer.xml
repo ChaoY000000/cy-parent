@@ -1,0 +1,23 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+	<!--http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"-->
+       <!--default-lazy-init="false">-->
+
+
+<!--&lt;!&ndash; dubbo 消费者引用, 需要使用的时候去掉注释&ndash;&gt;-->
+    <!--&lt;!&ndash; check="false"：表示在第一次调用时再初始化； mock=""：服务降级以及单元测试时需要mock时使用  &ndash;&gt;-->
+    <!--&lt;!&ndash; <dubbo:reference id="" interface="" /> &ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;aModule&ndash;&gt;-->
+    <!--<dubbo:reference id="a" interface="aModule.class" check="false"/>-->
+    <!--&lt;!&ndash; bModule &ndash;&gt;-->
+    <!--<dubbo:reference id="b"  interface="bModule.class" check="false"/>-->
+    <!--&lt;!&ndash; cModule &ndash;&gt;-->
+    <!--<dubbo:reference id="c"  interface="cModule.class" check="false"/>-->
+    <!--&lt;!&ndash; dModule &ndash;&gt;-->
+    <!--<dubbo:reference id="d"  interface="dModule.class" check="false"/>-->
+
+<!--</beans>-->

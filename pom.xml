@@ -8,7 +8,13 @@
 		<module>cy-practice-web</module>
 		<module>cy-practice-util</module>
         <module>cy-practice-biz</module>
-    </modules>
+		<module>cy-practice-facade</module>
+		<module>cy-practice-common</module>
+		<module>cy-practice-integration</module>
+		<module>cy-practice-service</module>
+		<module>cy-practice-test</module>
+		<module>cy-practice-dal</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -22,17 +28,68 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
+		<cy-practice-biz-version>0.0.1-SNAPSHOT</cy-practice-biz-version>
+		<cy-practice-common-version>0.0.1-SNAPSHOT</cy-practice-common-version>
+		<cy-practice-dal-version>0.0.1-SNAPSHOT</cy-practice-dal-version>
+		<cy-practice-facade-version>0.0.1-SNAPSHOT</cy-practice-facade-version>
+		<cy-practice-integration-version>0.0.1-SNAPSHOT</cy-practice-integration-version>
+		<cy-practice-service-version>0.0.1-SNAPSHOT</cy-practice-service-version>
+		<cy-practice-test-version>0.0.1-SNAPSHOT</cy-practice-test-version>
 		<cy-practice-util-version>0.0.1-SNAPSHOT</cy-practice-util-version>
+		<cy-practice-web-version>0.0.1-SNAPSHOT</cy-practice-web-version>
+
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-biz</artifactId>
+				<version>${cy-practice-biz-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-common</artifactId>
+				<version>${cy-practice-common-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-dal</artifactId>
+				<version>${cy-practice-dal-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-facade</artifactId>
+				<version>${cy-practice-facade-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-integration</artifactId>
+				<version>${cy-practice-integration-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-service</artifactId>
+				<version>${cy-practice-service-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-test</artifactId>
+				<version>${cy-practice-test-version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.chao</groupId>
 				<artifactId>cy-practice-util</artifactId>
 				<version>${cy-practice-util-version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.chao</groupId>
+				<artifactId>cy-practice-web</artifactId>
+				<version>${cy-practice-web-version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

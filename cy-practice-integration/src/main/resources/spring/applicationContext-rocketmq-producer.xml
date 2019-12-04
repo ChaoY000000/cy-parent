@@ -1,0 +1,42 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+	<!--http://www.springframework.org/schema/beans/spring-beans.xsd"-->
+       <!--default-lazy-init="false">-->
+
+    <!--<bean id="kvManager" class="com.gomefinance.framework.kv.mapdb.MapdbManager">-->
+    <!--</bean>-->
+
+  <!--<bean id="defaultRMQProducer" class="com.gomefinance.framework.mq.rocketmq.DefaultRMQProducer">-->
+        <!--<property name="namesrvAddr" value="${mq.producer.namesrvAddr}"/>-->
+        <!--<property name="producerGroup" value="${mq.producer.producerGroup}"/>-->
+        <!--&lt;!&ndash;保存失败的消息到本地，可选项，可以不配置这两个属性&ndash;&gt;-->
+        <!--<property name="kvManager" ref="kvManager"/>-->
+        <!--<property name="localDBPath" value="/data/logs/mqdata/${mq.producer.producerGroup}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="bigDataMQProducer" class="com.gomefinance.framework.mq.rocketmq.DefaultRMQProducer">-->
+        <!--<property name="namesrvAddr" value="${mq.bigData.producer.namesrvAddr}"/>-->
+        <!--<property name="producerGroup" value="${mq.locToBigdata.producerGroup}"/>-->
+        <!--&lt;!&ndash; 向不同的集群发消息需要设置不同的instanceName &ndash;&gt;-->
+        <!--<property name="instanceName" value="${mq.locToBigdata.producerGroup}"/>-->
+        <!--&lt;!&ndash;保存失败的消息到本地，可选项，可以不配置这两个属性&ndash;&gt;-->
+        <!--<property name="kvManager" ref="kvManager"/>-->
+        <!--<property name="localDBPath" value="/data/logs/mqdata/${mq.producer.producerGroup}"/>-->
+        <!--<property name="sendMsgTimeout" value="6000"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="channelMQProducer" class="com.gomefinance.framework.mq.rocketmq.DefaultRMQProducer">-->
+        <!--<property name="namesrvAddr" value="${mq.channel.producer.namesrvAddr}"/>-->
+        <!--<property name="producerGroup" value="${mq.locToChannel.producerGroup}"/>-->
+        <!--&lt;!&ndash; 向不同的集群发消息需要设置不同的instanceName &ndash;&gt;-->
+        <!--<property name="instanceName" value="${mq.locToChannel.producerGroup}"/>-->
+        <!--&lt;!&ndash;保存失败的消息到本地，可选项，可以不配置这两个属性&ndash;&gt;-->
+        <!--<property name="kvManager" ref="kvManager"/>-->
+        <!--<property name="localDBPath" value="/data/logs/mqdata/${mq.producer.producerGroup}"/>-->
+        <!--<property name="sendMsgTimeout" value="6000"/>-->
+    <!--</bean>-->
+
+<!--</beans>-->

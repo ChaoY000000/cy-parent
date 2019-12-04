@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-lazy-init="false">
+
+    <dubbo:application name="${dubbo.application.name}(cy-parent)"/>
+    <dubbo:registry address="${dubbo.registry.address}(zookeeper://zookeeper:2181)"/>
+    <dubbo:protocol name="${dubbo.protocol.name}(dubbo)" port="${dubbo.protocol.port}(99000)"/>
+    <dubbo:provider loadbalance="${dubbo.service.loadbalance}(roundrobin)"/>
+
+    <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+</beans>
