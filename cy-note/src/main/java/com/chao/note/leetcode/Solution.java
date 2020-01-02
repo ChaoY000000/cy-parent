@@ -1,7 +1,7 @@
 package com.chao.note.leetcode;
 
 
-    import org.apache.commons.lang3.StringUtils;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class Solution {
 //        int[] nums = new int[]{1,2,4,8,16,32,64,128};
 //        System.out.println(threeSumClosestOptimize(nums , 82));
 
-        System.out.println(letterCombinations("234"));
+        System.out.println(letterCombinations(""));
 
 
     }
@@ -230,6 +230,7 @@ public class Solution {
         sum += preNum;
         return sum;
     }
+
     private static int getValue(char c){
         switch(c){
             case 'I':return 1;
@@ -375,23 +376,45 @@ public class Solution {
      /**
       * @Author Chao
       * @Description  17. 电话号码的字母组合
+      *         执行用时 :2 ms, 在所有 Java 提交中击败了14.20%的用户
+                内存消耗 :36.3 MB, 在所有 Java 提交中击败了73.00%的用户
+      *
       * @Date  2020/1/2
       */
     public static List<String> letterCombinations(String digits) {
 
-        List<String> list = new ArrayList<>();
-        int index = 0;
-        while (true){
-            List<String> keyValue = getKeyValue(digits.charAt(index) + "");
-            for (String s : keyValue) {
+        if (digits == null || digits.isEmpty())return new ArrayList<String>();
+        List<String> listSb = new ArrayList<>();
 
+        List<String> keyValue = getKeyValue(digits.charAt(0) + "");
+        for (String s : keyValue) {
+            listSb.add(s);
+        }
+        int index = 1;
+        while (index < digits.length()){
+            List<String> list = new ArrayList<>();
+            keyValue = getKeyValue(digits.charAt(index) + "");
+            for (String str : listSb) {
+                for (String s : keyValue) {
+                    StringBuffer sb = new StringBuffer();
+                    list.add(str+s);
+                }
             }
+
+            int i = listSb.size()-1;
+            while (i >= 0){
+                listSb.remove(i--);
+            }
+            i++;
+            while ( i < list.size()){
+                listSb.add(list.get(i++));
+            }
+
             if (++index == digits.length()){
                 break;
             }
         }
-
-        return null;
+        return listSb;
     }
     private static List<String> getKeyValue(String str){
         switch (str){
@@ -415,4 +438,45 @@ public class Solution {
                 return new ArrayList<>();
         }
     }
+
+
+    /**
+     * @Author chao
+     * @Description  22. 括号生成   (动态规划)
+     *
+     * @Date 2019/12/21 12:51
+     */
+    public static List<String> generateParenthesis(int n) {
+        if(n == 0){
+            return  new ArrayList<String>();
+        }
+        List<List<String>> dp = new ArrayList<>();
+        List<String> dp0 = new ArrayList<>();
+
+        dp0.add("");
+        dp.add(dp0);
+
+
+
+
+
+
+        for (int i=1;i<=n;i++){
+            List<String> cur = new ArrayList<>();
+            for (int j=0;j<i;j++){
+                List<String> str1 = dp.get(j);
+                List<String> str2 = dp.get(i - 1 - j);
+                for (String s1 : str1) {
+                    for (String s2 : str2) {
+                        cur.add("(" + s1 + ")" + s2);
+                    }
+                }
+            }
+            dp.add(cur);
+        }
+        return dp.get(n);
+    }
+
+
+
 }
