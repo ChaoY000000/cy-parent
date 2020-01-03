@@ -3,6 +3,8 @@ package com.chao.note.leetcode;
 
 
 
+import com.chao.note.leetcode.entry.ListNode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,32 +19,56 @@ import java.util.regex.Pattern;
 public class Solution {
 
     public static void main(String[] args) {
+
+        //7. 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
 //        System.out.println(reverse(1534236469));
 
+
+        //8. 字符串转换整数 (atoi)
 //        System.out.println(myAtoi("  -2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012345678"));
 //        System.out.println(myAtoiOptimize("     -42"));
 
+
+        //11. 盛最多水的容器
 //        int[] height = new int[]{1,8,6,2,5,4,8,3,7};
 //        System.out.println(maxArea(height));
 
 
+        //12. 整数转罗马数字
 //        System.out.println(intToRoman(4));
 
 
+        //13. 罗马数字转整数
 //        System.out.println(romanToInt("MCMXCIVIII"));
 
+
+        //14. 最长公共前缀
 //        String[] strs = new String[]{"aaaaaaaaaaaaaaaaaaaaaaaaa"};
 //        System.out.println(longestCommonPrefix(strs));
 
+
+        //15. 三数之和
 //        int[] nums = new int[]{-1, 0, 1, 2, -1,2, -4 , 4};
 //        List<List<Integer>> lists = threeSum(nums);
 //        System.out.println(lists.toString());
 
+
+        //16. 最接近的三数之和
 //        int[] nums = new int[]{1,2,4,8,16,32,64,128};
 //        System.out.println(threeSumClosestOptimize(nums , 82));
 
-        System.out.println(letterCombinations(""));
 
+        //17. 电话号码的字母组合
+//        System.out.println(letterCombinations(""));
+//        System.out.println(letterCombinationsOptimize("234"));
+
+
+        //18. 四数之和
+//        int[] nums = new int[]{-3,-2,-1,0,0,1,2,3};
+//        System.out.println(fourSum(nums, 0).toString());
+
+
+        System.out.println(isValid("]"));
 
     }
 
@@ -230,7 +256,6 @@ public class Solution {
         sum += preNum;
         return sum;
     }
-
     private static int getValue(char c){
         switch(c){
             case 'I':return 1;
@@ -271,6 +296,9 @@ public class Solution {
      /**
       * @Author Chao
       * @Description  15. 三数之和
+      *         执行用时 :28 ms ms, 我的提交执行用时已经战胜 99.36 % 的 java 提交记录
+      *         内存消耗 :48.4 MB MB
+      *
       * @Date  2020/1/2
       */
     public static List<List<Integer>> threeSum(int[] nums) {
@@ -440,6 +468,189 @@ public class Solution {
     }
 
 
+     /**
+      * @Author Chao
+      * @Description  17. 电话号码的字母组合         (优化)optimize
+      *         执行用时 :1 ms, 在所有 Java 提交中击败了93.90%的用户
+      *         内存消耗 :35.9 MB, 在所有 Java 提交中击败了74.17%的用户
+      *
+      * @Date  2020/1/3
+      */
+    public static List<String> letterCombinationsOptimize(String digits){
+        String[] arr = new String[]{"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        List<String> result = new ArrayList<>();
+        if (digits == null || digits.isEmpty()) return result;
+        letterCombinationsDFS(digits , arr , result , "");
+        return result;
+    }
+    private static void letterCombinationsDFS(String digits, String[] arr, List<String> result, String letter){
+        if (letter.length() == digits.length()) {
+            result.add(letter);
+            return;
+        }
+        char[] chars = arr[digits.charAt(letter.length()) - '0' - 2].toCharArray();
+        for (char aChar : chars) {
+            letterCombinationsDFS(digits , arr , result , aChar+letter);
+        }
+    }
+
+
+
+     /**
+      * @Author Chao
+      * @Description  18. 四数之和
+      *         //使用while()
+      *         执行用时 :50 ms, 在所有 Java 提交中击败了20.29%的用户
+                内存消耗 :37.1 MB, 在所有 Java 提交中击败了97.03%的用户
+
+                //使用lists.contains(list)
+                执行用时 :37 ms, 在所有 Java 提交中击败了41.88%的用户
+                内存消耗 :36.7 MB, 在所有 Java 提交中击败了98.84%的用户
+
+      * @Date  2020/1/3
+      */
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> lists = new ArrayList<>();
+        if (nums.length < 4) return lists;
+        Arrays.sort(nums);
+        int first = 0 , secend = 1 , left = 2 , right = nums.length-1;
+        int sum = 0;
+        //-3,-2,-1,0,0,1,2,3
+        while (first < nums.length-3){
+            while (secend < nums.length-2){
+                sum = nums[first] + nums[secend] + nums[left] + nums[right];
+                if (sum == target) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[first]);
+                    list.add(nums[secend]);
+                    list.add(nums[left]);
+                    list.add(nums[right]);
+                    if (!lists.contains(list)){
+                        lists.add(list);
+                    }
+                }
+                if (left < right){
+                    if (sum < target){
+                        left++;
+//                        while (left < right && nums[left-1] == nums[left]){
+//                            left++;
+//                        }
+                    }else {
+                        right--;
+//                        while (left < right && nums[right] == nums[right+1]){
+//                            right--;
+//                        }
+                    }
+                }
+                if (left >= right){
+                    secend++;
+//                    while (secend < nums.length-2 && nums[secend-1] == nums[secend]){
+//                        secend++;
+//                    }
+                    left = secend+1;
+                    right = nums.length-1;
+                }
+            }
+            first++;
+//            while (first < nums.length-3 && nums[first-1] == nums[first]){
+//                first++;
+//            }
+            secend = first+1;
+            left = secend+1;
+            right = nums.length-1;
+        }
+        return lists;
+    }
+
+     /**
+      * @Author Chao
+      * @Description    19. 删除链表的倒数第N个节点
+      * @Date  2020/1/3
+      */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+       return null;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    20. 有效的括号
+      *         执行用时 :12 ms, 在所有 Java 提交中击败了9.27% 的用户
+                内存消耗 :36.7 MB, 在所有 Java 提交中击败了34.78% 的用户
+      *
+      *   ==========================(优化)optimize============================================
+      *         执行用时 :1 ms, 在所有 Java 提交中击败了98.91% 的用户
+      *         内存消耗 :34.2 MB, 在所有 Java 提交中击败了86.74% 的用户
+      * @Date  2020/1/3
+      */
+    public static boolean isValid(String s) {
+        if (s.equals("")) return true;
+        char[] chars = s.toCharArray();
+        int length = chars.length;
+        char[] stack = new char[length/2+1];
+        int index = 0;
+        char c;
+        for (int i=0; i<length; i++){
+            if (' ' == chars[i]) continue;
+            if (index == length/2+1) return false;
+            switch (chars[i]){
+                case '(':
+                case '[':
+                case '{':
+                    stack[index++] = chars[i];
+                    break;
+                case ')':
+                    if (index>0){
+                        c = stack[--index];
+                        if (!(c == '('))  return false;
+                        break;
+                    }
+                case ']':
+                    if (index>0){
+                        c = stack[--index];
+                        if (!(c == '['))  return false;
+                        break;
+                    }
+                case '}':
+                    if (index>0){
+                        c = stack[--index];
+                        if (!(c == '{'))  return false;
+                        break;
+                    }else {
+                        return false;
+                    }
+            }
+        }
+        if (index!=0) return false;
+        return true;
+
+        //========================  Old =======================================
+//        List<String> stack = new ArrayList<>();
+//        for (int i=0; i<s.toCharArray().length; i++){
+//            String sc = s.charAt(i) + "";
+//            if (" ".equals(sc)){
+//                continue;
+//            }
+//            if ("(".equals(sc) || "{".equals(sc) || "[".equals(sc) ){
+//                stack.add(0, sc);
+//            }else {
+//                if (stack.size() == 0){
+//                    return false;
+//                }
+//                String pop = stack.get(0);
+//                stack.remove(0);
+//                if ( !(("(".equals(pop) && ")".equals(sc)) ||  ("{".equals(pop) && "}".equals(sc)) || ("[".equals(pop) && "]".equals(sc))) ){
+//                    return false;
+//                }
+//            }
+//        }
+//        if (stack.size() != 0){
+//            return false;
+//        }
+//        return true;
+    }
+
+
     /**
      * @Author chao
      * @Description  22. 括号生成   (动态规划)
@@ -455,11 +666,6 @@ public class Solution {
 
         dp0.add("");
         dp.add(dp0);
-
-
-
-
-
 
         for (int i=1;i<=n;i++){
             List<String> cur = new ArrayList<>();
