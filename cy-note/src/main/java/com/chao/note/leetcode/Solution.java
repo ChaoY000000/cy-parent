@@ -68,7 +68,41 @@ public class Solution {
 //        System.out.println(fourSum(nums, 0).toString());
 
 
-        System.out.println(isValid("]"));
+        // 20. 有效的括号
+//        System.out.println(isValid("]"));
+
+
+        //22. 括号生成   (动态规划)
+//        System.out.println(generateParenthesis(3));
+
+
+        //26. 删除排序数组中的重复项
+//        int[] nums = new int[]{0};
+//        System.out.println(removeDuplicates(nums));
+
+
+        //27. 移除元素
+//        int[] nums = new int[]{3,2,2,3};
+//        System.out.println(removeElement(nums,2));
+
+
+        //28. 实现 strStr()
+//        System.out.println(strStr("hello" ,"ll"));
+
+
+        //32. 最长有效括号
+//        System.out.println(longestValidParentheses("()(())"));
+
+
+        //34. 在排序数组中查找元素的第一个和最后一个位置
+//        int[] nums = new int[]{1,3};
+//        int[] ints = searchRange(nums, 1);
+
+
+        //35. 搜索插入位置
+//        int[] nums = new int[]{1,3,5,7,9};
+//        System.out.println(searchInsert(nums,99));
+
 
     }
 
@@ -684,5 +718,258 @@ public class Solution {
     }
 
 
+     /**
+      * @Author Chao
+      * @Description    26. 删除排序数组中的重复项
+      *         执行用时 :1 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :39.9 MB, 在所有 Java 提交中击败了95.14% 的用户
+
+      * @Date  2020/1/8
+      */
+    public static int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int num = nums[0] , j = 0;
+        for (int i=1;i<nums.length;i++){
+            if (nums[i] > num){
+                num = nums[i];
+                nums[++j] = num;
+            }
+        }
+        return j+1;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    27. 移除元素
+      *         执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :36.4 MB, 在所有 Java 提交中击败了83.86% 的用户
+
+      * @Date  2020/1/8
+      */
+    public static int removeElement(int[] nums, int val) {
+        if (nums == null || nums.length == 0) return 0;
+        int index = nums.length - 1 , num = 0;
+        for (int i=0;i<=index;i++){
+            if (nums[i] == val){
+                while (i<index && nums[index] == val){
+                    index--;
+                }
+                if (index != i){
+                    nums[index] = nums[index] + nums[i];
+                    nums[i] = nums[index] - nums[i];
+                    nums[index] = nums[index] - nums[i];
+                }
+//                num = nums[index];
+//                nums[index] = nums[i];
+//                nums[i] = num;
+                index--;
+            }
+        }
+        return index+1;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    28. 实现 strStr()
+      *         执行用时 :3 ms, 在所有 Java 提交中击败了41.05% 的用户
+                内存消耗 :37.7 MB, 在所有 Java 提交中击败了39.03% 的用户
+
+                ====================== 28. 实现 strStr()       (优化)optimize  ============================
+                执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :35.9 MB, 在所有 Java 提交中击败了84.40% 的用户
+
+      * @Date  2020/1/8
+      */
+    public static int strStr(String haystack, String needle) {
+
+        if(needle==null || "".equals(needle) )return 0;
+        return  haystack.indexOf(needle);
+
+        //===============================================================================
+//        if (needle == null || needle.length() == 0) return 0;
+//        int len = needle.length() , index = 0 , flagIndex = -1;
+//        if (haystack.length() < len) return -1;
+//        for (int i=0;i<haystack.length()-len+1;i++){
+//            if (haystack.charAt(i) == needle.charAt(index)){
+//                for (int j=i;j<haystack.length();j++){
+//                    if (haystack.charAt(j) == needle.charAt(index)){
+//                        if (index == 0){
+//                            flagIndex = i;
+//                        }
+//                        index++;
+//                        if (index == len){
+//                            return flagIndex;
+//                        }
+//                    }else {
+//                        index = 0;
+//                        flagIndex = -1;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        return flagIndex;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description  30. 串联所有单词的子串
+      *
+      *
+      * @Date  2020/1/8
+      */
+    public static List<Integer> findSubstring(String s, String[] words) {
+
+        return null;
+    }
+    
+    
+    /**
+      * @Author Chao
+      * @Description    32. 最长有效括号
+      *         执行用时 :2 ms, 在所有 Java 提交中击败了98.82% 的用户
+      *         内存消耗 :36.8 MB, 在所有 Java 提交中击败了86.81% 的用户
+      *
+      * @Date  2020/1/4
+      */
+    public static int longestValidParentheses(String s) {
+        int maxLen = 0;
+        int[] dp = new int[s.length()];
+        for (int i=1; i<s.length(); i++){
+            if (s.charAt(i) == ')'){
+                if (s.charAt(i-1) == '('){
+                    dp[i] = (i>1 ? dp[i-2] : 0) + 2;
+                }else if (i-dp[i-1] > 0 && s.charAt(i - dp[i-1] - 1) == '('){
+                    dp[i] = dp[i-1] + (i - dp[i-1] > 1 ? dp[i - dp[i-1] - 2] : 0) + 2;
+                }
+                maxLen = Math.max(maxLen, dp[i]);
+            }
+        }
+        return maxLen;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    33. 搜索旋转排序数组
+      * @Date  2020/1/8
+      */
+    public int search(int[] nums, int target) {
+        int num =  nums[nums.length/2];
+        int left = nums.length/2;
+        int right = nums.length/2;
+        while (num != target){
+            if (target > nums[left]){
+                num = nums[--left];
+            }
+
+            if (target < nums[right]){
+                num = nums[right++];
+            }
+
+        }
+        return 0;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    34. 在排序数组中查找元素的第一个和最后一个位置
+      *         执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :42.9 MB, 在所有 Java 提交中击败了61.64% 的用户
+
+      * @Date  2020/1/8
+      */
+    public static int[] searchRange(int[] nums, int target) {
+        int[] result = new int[]{-1,-1};
+        if (nums == null || nums.length==0) return result;
+        int index = nums.length / 2 , j=0;
+        int num = nums[index];
+        if (target > num){
+            while (target >= num) {
+                if (target == num){
+                    j++;
+                }
+                if (index < nums.length-1){
+                    num = nums[++index];
+                }else {
+                    ++index;
+                    break;
+                }
+            }
+            if (j!=0){
+                result[0] = index - j;
+                result[1] = index - 1;
+            }
+        }else if (target < num){
+            while (target <= num) {
+                if (target == num){
+                    j++;
+                }
+                if (index > 0){
+                    num = nums[--index];
+                }else {
+                    --index;
+                    break;
+                }
+            }
+            if (j!=0){
+                result[0] = ++index;
+                result[1] = index + j - 1;
+            }
+        }else if (target == num){
+            while (target == num) {
+                if (index==nums.length-1){
+                    ++index;
+                    break;
+                }
+                num = nums[++index];
+            }
+            result[1] = --index;
+            num = nums[index];
+            while (target == num) {
+                if (index==0){
+                    --index;
+                    break;
+                }
+                num = nums[--index];
+            }
+            result[0] = ++index;
+        }
+        return result;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    35. 搜索插入位置
+      *         执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :38.7 MB, 在所有 Java 提交中击败了60.31% 的用户
+
+      * @Date  2020/1/8
+      */
+    public static int searchInsert(int[] nums, int target) {
+        int index = nums.length / 2;
+        while (target >= nums[index]){
+            if (target == nums[index]){
+                return index;
+            }else if (index == nums.length - 1){
+                return ++index;
+            }
+            index++;
+        }
+        while (target <= nums[index]){
+            if (target == nums[index]){
+                return index;
+            }else if (index == 0){
+                return 0;
+            }
+            index--;
+        }
+        return ++index;
+    }
 
 }
