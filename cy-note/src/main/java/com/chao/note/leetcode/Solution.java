@@ -94,6 +94,11 @@ public class Solution {
 //        System.out.println(longestValidParentheses("()(())"));
 
 
+        //33. 搜索旋转排序数组
+//        int[] nums = new int[]{4};
+//        System.out.println(search(nums,3));
+
+
         //34. 在排序数组中查找元素的第一个和最后一个位置
 //        int[] nums = new int[]{1,3};
 //        int[] ints = searchRange(nums, 1);
@@ -855,23 +860,30 @@ public class Solution {
      /**
       * @Author Chao
       * @Description    33. 搜索旋转排序数组
+      *         执行用时 :1 ms, 在所有 Java 提交中击败了87.99% 的用户
+                内存消耗 :39.5 MB, 在所有 Java 提交中击败了57.90% 的用户
+
       * @Date  2020/1/8
       */
-    public int search(int[] nums, int target) {
-        int num =  nums[nums.length/2];
+    public static int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
         int left = nums.length/2;
         int right = nums.length/2;
-        while (num != target){
-            if (target > nums[left]){
-                num = nums[--left];
-            }
-
-            if (target < nums[right]){
-                num = nums[right++];
-            }
-
+        while (target >= nums[right]){
+            if (nums[right] == target) return right;
+            if (right < nums.length-1 && nums[right] > nums[right+1]) return -1;
+            if (right == nums.length-1) right = -1;
+            right++;
+            if (right == left) return -1;
         }
-        return 0;
+        while (target <= nums[left]){
+            if (nums[left] == target) return left;
+            if (left > 0 && nums[left] < nums[left-1]) return -1;
+            if (left == 0) left = nums.length;
+            left--;
+            if (left == right) return -1;
+        }
+        return -1;
     }
 
 
