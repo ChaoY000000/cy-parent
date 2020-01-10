@@ -68,8 +68,47 @@ public class Solution {
 //        System.out.println(fourSum(nums, 0).toString());
 
 
+        //19. 删除链表的倒数第N个节点
+//        ListNode listNode1 = new ListNode(1);
+//        ListNode listNode2 = new ListNode(2);
+//        ListNode listNode3 = new ListNode(3);
+//        ListNode listNode4 = new ListNode(4);
+//        ListNode listNode5 = new ListNode(5);
+//        listNode1.next = listNode2;
+//        listNode2.next = listNode3;
+//        listNode3.next = listNode4;
+//        listNode4.next = listNode5;
+//
+//        ListNode listNode = removeNthFromEnd(listNode1, 2);
+//        while (listNode != null){
+//            System.out.println(listNode.val + " -> ");
+//            listNode = listNode.next;
+//        }
+
+
         // 20. 有效的括号
 //        System.out.println(isValid("]"));
+
+
+
+        //21. 合并两个有序链表
+        ListNode listNodel1 = new ListNode(1);
+        ListNode listNodel12 = new ListNode(2);
+        ListNode listNodel14 = new ListNode(4);
+        listNodel1.next = listNodel12;
+        listNodel12.next = listNodel14;
+
+        ListNode listNodel2 = new ListNode(1);
+        ListNode listNodel23 = new ListNode(3);
+        ListNode listNodel24 = new ListNode(4);
+        listNodel2.next = listNodel23;
+        listNodel23.next = listNodel24;
+
+        ListNode listNode = mergeTwoLists(listNodel1, listNodel2);
+        while (listNode != null){
+            System.out.print(listNode.val + " -> ");
+            listNode = listNode.next;
+        }
 
 
         //22. 括号生成   (动态规划)
@@ -604,10 +643,51 @@ public class Solution {
      /**
       * @Author Chao
       * @Description    19. 删除链表的倒数第N个节点
+      *         执行用时 :1 ms, 在所有 Java 提交中击败了50.57% 的用户
+                内存消耗 :34.7 MB, 在所有 Java 提交中击败了87.11% 的用户
+
+        ==========================(优化)optimize  （一次扫描）  ============================================
+      *         执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :34.5 MB, 在所有 Java 提交中击败了88.60% 的用户
       * @Date  2020/1/3
       */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-       return null;
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        //一次扫描实现
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+        int index = 0;
+        while (first != null){
+            if (index < n+1){
+                index++;
+                first = first.next;
+            }else {
+                first = first.next;
+                second = second.next;
+            }
+        }
+        second.next = second.next.next;
+        return dummy.next;
+        //======================    (优化)optimize    ===================================
+
+        //两次扫描实现
+//        ListNode dummy  = new ListNode(0);
+//        dummy.next  = head;
+//        int index = 0;
+//        ListNode node = head;
+//        while (node != null){
+//            index++;
+//            node = node.next;
+//        }
+//        index -= n;
+//        node = dummy;
+//        while (index > 0){
+//            index--;
+//            node = node.next;
+//        }
+//        node.next = node.next.next;
+//       return dummy.next;
     }
 
 
@@ -687,6 +767,27 @@ public class Solution {
 //            return false;
 //        }
 //        return true;
+    }
+
+
+     /**
+      * @Author Chao
+      * @Description    21. 合并两个有序链表
+                执行用时 :0 ms, 在所有 Java 提交中击败了100.00% 的用户
+                内存消耗 :37.7 MB, 在所有 Java 提交中击败了75.38% 的用户
+
+      * @Date  2020/1/10
+      */
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        else if (l2 == null) return l1;
+        if (l1.val <= l2.val){
+            l1.next = mergeTwoLists(l1.next , l2);
+            return l1;
+        }else {
+            l2.next = mergeTwoLists(l1 , l2.next);
+            return l2;
+        }
     }
 
 
