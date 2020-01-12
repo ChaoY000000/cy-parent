@@ -823,7 +823,37 @@ public class Solution {
         return dp.get(n);
     }
 
-
+    /**
+     * @Author chao
+     * @Description  23. 合并K个排序链表
+     *          执行用时 :4 ms, 在所有 Java 提交中击败了74.58% 的用户
+                内存消耗 :41.4 MB, 在所有 Java 提交中击败了78.79% 的用户
+     * @Date 2020/1/10 20:18 
+     */
+    public static ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        int len = lists.length;
+        while(len>1) {
+            for (int i=0; i<len/2; i++) {
+                lists[i] = mergeListNode(lists[i], lists[len-1-i]);
+            }
+            len = (len+1)/2;
+        }
+        return lists[0];
+    }
+    private static ListNode mergeListNode(ListNode l1 , ListNode l2){
+        if (l1 == null) return l2;
+        else if (l2 == null) return l1;
+        if (l1.val < l2.val){
+            l1.next = mergeListNode(l1.next , l2);
+            return l1;
+        }else {
+            l2.next = mergeListNode(l1 , l2.next);
+            return l2;
+        }
+    }
+    
+    
      /**
       * @Author Chao
       * @Description    26. 删除排序数组中的重复项
