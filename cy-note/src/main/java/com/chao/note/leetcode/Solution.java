@@ -7,6 +7,7 @@ import com.chao.note.leetcode.entry.ListNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,28 +93,42 @@ public class Solution {
 
 
         //21. 合并两个有序链表
-        ListNode listNodel1 = new ListNode(1);
-        ListNode listNodel12 = new ListNode(2);
-        ListNode listNodel14 = new ListNode(4);
-        listNodel1.next = listNodel12;
-        listNodel12.next = listNodel14;
-
-        ListNode listNodel2 = new ListNode(1);
-        ListNode listNodel23 = new ListNode(3);
-        ListNode listNodel24 = new ListNode(4);
-        listNodel2.next = listNodel23;
-        listNodel23.next = listNodel24;
-
-        ListNode listNode = mergeTwoLists(listNodel1, listNodel2);
-        while (listNode != null){
-            System.out.print(listNode.val + " -> ");
-            listNode = listNode.next;
-        }
+//        ListNode listNodel1 = new ListNode(1);
+//        ListNode listNodel12 = new ListNode(2);
+//        ListNode listNodel14 = new ListNode(4);
+//        listNodel1.next = listNodel12;
+//        listNodel12.next = listNodel14;
+//
+//        ListNode listNodel2 = new ListNode(1);
+//        ListNode listNodel23 = new ListNode(3);
+//        ListNode listNodel24 = new ListNode(4);
+//        listNodel2.next = listNodel23;
+//        listNodel23.next = listNodel24;
+//
+//        ListNode listNode = mergeTwoLists(listNodel1, listNodel2);
+//        while (listNode != null){
+//            System.out.print(listNode.val + " -> ");
+//            listNode = listNode.next;
+//        }
 
 
         //22. 括号生成   (动态规划)
 //        System.out.println(generateParenthesis(3));
 
+
+//        ListNode listNode1 = new ListNode(1);
+//        ListNode listNode2 = new ListNode(2);
+//        ListNode listNode3 = new ListNode(3);
+//        ListNode listNode4 = new ListNode(4);
+//        listNode1.next = listNode2;
+//        listNode2.next = listNode3;
+//        listNode3.next = listNode4;
+//
+//        ListNode listNode = swapPairs(listNode1);
+//        while (listNode != null){
+//            System.out.print(listNode.val + " -> ");
+//            listNode = listNode.next;
+//        }
 
         //26. 删除排序数组中的重复项
 //        int[] nums = new int[]{0};
@@ -854,6 +869,28 @@ public class Solution {
     }
     
     
+     /**
+      * @Author Chao
+      * @Description    24. 两两交换链表中的节点
+      * @Date  2020/1/11
+      */
+    public static ListNode swapPairs(ListNode head) {
+        ListNode node = new ListNode(0);
+        node.next = head;
+        ListNode temp = node;
+
+        while (temp.next != null && temp.next.next != null){
+            ListNode first = temp.next;//1234
+            ListNode second = temp.next.next;//234
+            temp.next = second;//0234
+            first.next = second.next;//134
+            second.next = first;
+            temp = first;
+        }
+        return node.next;
+    }
+
+
      /**
       * @Author Chao
       * @Description    26. 删除排序数组中的重复项
