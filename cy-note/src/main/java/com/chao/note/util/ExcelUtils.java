@@ -137,14 +137,11 @@ public class ExcelUtils {
 //      HSSFWorkbook workbook=new HSSFWorkbook(new FileInputStream(new File(file)));
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
         Sheet sheet = workbook.getSheetAt(0);//读取第一个 sheet
-//        List<ExcelDTO> list = new ArrayList<>();
-//        ExcelDTO exDto = new ExcelDTO("一级Code" ,"一级地址" , "二级Code" ,"二级地址" , "三级Code" ,"三级地址", "四级Code","四级地址");
-//        list.add(exDto);
-        Map<String , ExcelDTO> map = Maps.newHashMap();
+        Map<String , ExcelDTO> map = Maps.newLinkedHashMap();
         Row row = null;
         int count = sheet.getPhysicalNumberOfRows();
         //逐行处理 excel 数据
-        for (int i = 0; i < count; i++) {
+        for (int i = 1; i < count; i++) {
 //            JSONObject json = new JSONObject();
             ExcelDTO excelDTO = new ExcelDTO();
             row = sheet.getRow(i);
@@ -179,8 +176,6 @@ public class ExcelUtils {
                 String addressKey = excelDTO.getFirstAddress().trim() + excelDTO.getSecondAddress().trim() +
                         excelDTO.getThirdAddress().trim() + excelDTO.getFourthAddress().trim();
                 map.put(addressKey , excelDTO);
-//                list.add(excelDTO);
-//                System.out.println("excelDTO:" + excelDTO);
             }
         }
         workbook.close();
@@ -246,8 +241,8 @@ public class ExcelUtils {
 //        ExcelUtils excel2 = new ExcelUtils("C:\\Users\\15313\\Desktop\\国美零售\\gomeTest.xlsx");
 
         try {
-            Map<String , ExcelDTO> excel1 = ExcelUtils.readExcel("C:\\Users\\15313\\Desktop\\国美零售\\安迅物流四级地址.xlsx");
-            Map<String , ExcelDTO> excel2 = ExcelUtils.readExcel("C:\\Users\\15313\\Desktop\\国美零售\\gomeTest.xlsx");
+            Map<String , ExcelDTO> excel1 = ExcelUtils.readExcel("C:\\Users\\Chao\\Desktop\\国美零售\\安迅物流四级地址.xlsx");
+            Map<String , ExcelDTO> excel2 = ExcelUtils.readExcel("C:\\Users\\Chao\\Desktop\\国美零售\\gomeTest.xlsx");
             write(excel1 , excel2);
         } catch (IOException e) {
             e.printStackTrace();
@@ -266,53 +261,40 @@ public class ExcelUtils {
         String[][] content = null;
 
 
-        for (String addressKey : excel2.keySet()) {
-            ExcelDTO excelDTO = excel1.get(addressKey);
-            if (excelDTO != null){
-
+        int i = 0;
+        content = new String[excel1.size() + excel2.size()][title.length];
+        for (String addressKey : excel1.keySet()) {
+            ExcelDTO excelDTO1 = excel1.get(addressKey);
+//            content[i][0] = null;
+            content[i][1] = excelDTO1.getFirstCode();
+            content[i][2] = excelDTO1.getFirstAddress();
+            content[i][3] = excelDTO1.getSecondCode();
+            content[i][4] = excelDTO1.getSecondAddress();
+            content[i][5] = excelDTO1.getThirdCode();
+            content[i][6] = excelDTO1.getThirdAddress();
+            content[i][7] = excelDTO1.getFourthCode();
+            content[i][8] = excelDTO1.getFourthAddress();
+//            content[i][9] = null;
+//            content[i][10] = null;
+//            content[i][11] = null;
+            ExcelDTO excelDTO2 = excel2.get(addressKey);
+            if (excelDTO2 != null){
+                    content[i][12] = excelDTO2.getFirstCode();
+                    content[i][13] = excelDTO2.getFirstAddress();
+                    content[i][14] = excelDTO2.getSecondCode();
+                    content[i][15] = excelDTO2.getSecondAddress();
+                    content[i][16] = excelDTO2.getThirdCode();
+                    content[i][17] = excelDTO2.getThirdAddress();
+                    content[i][18] = excelDTO2.getFourthCode();
+                    content[i][19] = excelDTO2.getFourthAddress();
             }
-
+            i++;
         }
-
-//        int i = 0;
-//        for (ExcelDTO excelDTO1 : excel1) {
-//            content = new String[excel1.size() + excel2.size()][title.length];
-//            String excel1Address = excelDTO1.getFirstAddress().trim() + excelDTO1.getSecondAddress().trim() +
-//                    excelDTO1.getThirdAddress().trim() + excelDTO1.getFourthAddress().trim();
-//            for (ExcelDTO excelDTO2 : excel2) {
-//                String excel2Address = excelDTO2.getFirstAddress().trim() + excelDTO2.getSecondAddress().trim() +
-//                        excelDTO2.getThirdAddress().trim() + excelDTO2.getFourthAddress().trim();
-//                if (excel1Address.equals(excel2Address)){
-//                    content[i][0] = null;
-//                    content[i][1] = excelDTO1.getFirstCode();
-//                    content[i][2] = excelDTO1.getFirstAddress();
-//                    content[i][3] = excelDTO1.getSecondCode();
-//                    content[i][4] = excelDTO1.getSecondAddress();
-//                    content[i][5] = excelDTO1.getThirdCode();
-//                    content[i][6] = excelDTO1.getThirdAddress();
-//                    content[i][7] = excelDTO1.getFourthCode();
-//                    content[i][8] = excelDTO1.getFourthAddress();
-//                    content[i][9] = null;
-//                    content[i][10] = null;
-//                    content[i][11] = null;
-//                    content[i][12] = excelDTO2.getFirstCode();
-//                    content[i][13] = excelDTO2.getFirstAddress();
-//                    content[i][14] = excelDTO2.getSecondCode();
-//                    content[i][15] = excelDTO2.getSecondAddress();
-//                    content[i][16] = excelDTO2.getThirdCode();
-//                    content[i][17] = excelDTO2.getThirdAddress();
-//                    content[i][18] = excelDTO2.getFourthCode();
-//                    content[i][19] = excelDTO2.getFourthAddress();
-//                    i++;
-//                }
-//            }
-//        }
-
         //创建HSSFWorkbook
         XSSFWorkbook wb = ExcelUtils.getHSSFWorkbook(sheetName, title, content, null);
         FileOutputStream output = null;
         try {
-            output = new FileOutputStream("C:\\Users\\15313\\Desktop\\国美零售\\" + fileName);
+            output = new FileOutputStream("C:\\Users\\Chao\\Desktop\\国美零售\\" + fileName);
             wb.write(output);
             output.flush();
         } catch (IOException e) {
