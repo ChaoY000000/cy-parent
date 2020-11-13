@@ -28,10 +28,10 @@ public class RedisTest {
         System.out.println("Server is running: "+jedis.ping());
 
         // push值
-//        jedis.lpush("durant", "Redis","Mongodb","Mysql","durant");
+        jedis.lpush("list", "Redis","Mongodb","Mysql","durant");
         // 再取出所有数据jedis.lrange是按范围取出，
         // 第一个是key，第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有
-        List<String> list = jedis.lrange("durant",0,5);
+        List<String> list = jedis.lrange("list",0,5);
         list.forEach(s -> System.out.println("value:"+s));
 
     }
